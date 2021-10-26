@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="js/pixi.min.js"></script>
+    <script>
+		var app = new PIXI.Application(1480,725);
+        document.body.appendChild(app.view);
+        
+        var bg = new PIXI.Sprite.fromImage("res/blank.jpg");
+        app.stage.addChild(bg);
+        bg.scale.x=6;
+        bg.scale.y=4;
+        
+        var man = new PIXI.Sprite.fromImage("res/man.jpg");
+        app.stage.addChild(man);
+        man.x=1250;
+        man.y=-40;
+        man.scale.x=1;
+        man.scale.y=1.3;
+        
+        var woman = new PIXI.Sprite.fromImage("res/woman.jpg");
+        app.stage.addChild(woman);
+        woman.x=150;
+        woman.scale.x=0.6;
+        woman.scale.y=0.6;
+        
+        var woman2 = new PIXI.Sprite.fromImage("res/woman2.png");
+        app.stage.addChild(woman2);
+        woman2.x=700;
+        woman2.y=-50;
+        woman2.scale.x=0.75;
+        woman2.scale.y=0.75;
+        
+        var pt2 = new PIXI.Sprite.fromImage("res/pattern2.png");
+        app.stage.addChild(pt2);
+        pt2.alpha=0.5;
+        pt2.x=550;
+        pt2.y=-20;
+        pt2.scale.x=0.5;
+        pt2.scale.y=0.4;        
+
+        var ph = new PIXI.Sprite.fromImage("res/paintinghead.png");
+        app.stage.addChild(ph);
+        ph.x=520;
+        ph.y=100;
+        ph.scale.x=0.5;
+        ph.scale.y=0.4; 
+
+        var pb = new PIXI.Sprite.fromImage("res/paintingbody.png");
+        app.stage.addChild(pb);
+        pb.x=520;
+        pb.y=130;
+        pb.anchor.set(0,0.12);
+        pb.scale.x=0.5;
+        pb.scale.y=0; 
+        
+        var pt = new PIXI.Sprite.fromImage("res/paintingtail.png");
+        app.stage.addChild(pt);
+        pt.x=525;
+        pt.y=-170;
+        pt.scale.x=0.5;
+        pt.scale.y=0.4; 
+        var flag=false;
+        function open(){
+        	if(pb.scale.y<=0.6)
+        		pb.scale.y+=0.01;
+        	if(pt.y<230)
+        		pt.y+=7;
+        }
+        function close(){
+        	if(pb.scale.y>=0)
+        		pb.scale.y-=0.01;
+        	if(pt.y>-170)
+        		pt.y-=7;
+        }
+        
+        
+		var headline = new PIXI.Text("目录",{fontSize:40,fontWeight:"bold"});
+		headline.anchor.set(0.5,0.5);
+		headline.x = 700;
+		headline.y = 100;
+		app.stage.addChild(headline);
+		
+		var bg_introduction = new PIXI.Text("背景介绍",{fontSize:30,fontWeight:"bold"});
+	    var historical_records = new PIXI.Text("历史记录",{fontSize:30,fontWeight:"bold"});
+	    var interactive_development = new PIXI.Text("互动拓展",{fontSize:30,fontWeight:"bold"});
+
+		bg_introduction.x=700;
+		bg_introduction.y=280;
+		bg_introduction.interactive=true;
+		bg_introduction.buttonMode=true;
+		bg_introduction.anchor.set(0.5,0.5);
+		
+	    historical_records.x=700;
+	    historical_records.y=330;
+	    historical_records.interactive=true;
+		historical_records.buttonMode=true;
+	    historical_records.anchor.set(0.5,0.5);
+	    
+	    interactive_development.x=700;
+	    interactive_development.y=380;
+	    interactive_development.interactive=true;
+		interactive_development.buttonMode=true;
+	    interactive_development.anchor.set(0.5,0.5);
+	    
+	    app.ticker.add(animate);
+	    function animate(){
+	    	if(flag==true)
+	    		open();
+	    	else
+	    		close();
+	    	man.x-=2;
+	    	woman.x-=2;
+	    	woman2.x-=2;
+			if(man.x<-400)
+				man.x=1800;
+			if(woman.x<-400)
+				woman.x=1800;
+			if(woman2.x<-400)
+				woman2.x=1800;
+	    }
+	    
+		headline.interactive=true;
+		headline.buttonMode=true;
+		headline.on("click",first_index);
+		
+		app.stage.addChild(bg_introduction);
+        app.stage.addChild(historical_records);
+        app.stage.addChild(interactive_development);
+        bg_introduction.visible=false;
+        historical_records.visible=false;
+        interactive_development.visible=false;
+            
+		function first_index(){
+			if(flag===false)
+			{
+			flag=true;
+            bg_introduction.visible=true;
+        	historical_records.visible=true;
+        	interactive_development.visible=true;
+			}
+			else
+			{
+			flag=false;
+	        bg_introduction.visible=false;
+        	historical_records.visible=false;
+    	    interactive_development.visible=false;
+			}
+			
+			
+			
+		}
+		
+		
+    </script>
+</body>
+</html>
